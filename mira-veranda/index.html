@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mira Veranda — Veranda Bouwen op Maat</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+:root {
+  --black: #0A0A0A; --white: #FFFFFF;
+  --grey-100: #F5F5F5; --grey-200: #E8E8E8;
+  --grey-400: #999999; --grey-600: #555555;
+  --grey-800: #222222; --border: #E0E0E0;
+}
+body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(255,255,255,0.97); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border); height: 68px;
+  display: flex; align-items: center; padding: 0 6%; justify-content: space-between;
+}
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; font-weight: 600; letter-spacing: 0.5px; color: var(--black); text-decoration: none; }
+.nav-logo span { font-style: italic; font-weight: 300; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--grey-600); font-size: 0.82rem; font-weight: 400; letter-spacing: 0.8px; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover { color: var(--black); }
+.nav-cta { background: var(--black) !important; color: var(--white) !important; padding: 0.6rem 1.5rem; font-size: 0.75rem !important; letter-spacing: 1.2px; font-weight: 600 !important; }
+.nav-cta:hover { background: var(--grey-800) !important; }
+
+/* HERO */
+.hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 68px; }
+.hero-left { background: var(--black); display: flex; flex-direction: column; justify-content: center; padding: 8%; position: relative; overflow: hidden; }
+.hero-left::before { content: 'VERANDA'; position: absolute; bottom: -3rem; left: -1rem; font-family: 'Cormorant Garamond', serif; font-size: 12rem; font-weight: 300; color: rgba(255,255,255,0.03); white-space: nowrap; pointer-events: none; letter-spacing: -5px; }
+.hero-eyebrow { font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase; color: var(--grey-400); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem; }
+.hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--grey-400); }
+.hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 5.5vw, 6rem); font-weight: 300; line-height: 1.0; color: var(--white); letter-spacing: -1px; margin-bottom: 1.2rem; }
+.hero h1 em { font-style: italic; }
+.hero-sub { font-size: 0.9rem; line-height: 1.8; color: var(--grey-400); max-width: 400px; margin-bottom: 3rem; font-weight: 300; }
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-white { background: var(--white); color: var(--black); padding: 0.9rem 2rem; text-decoration: none; font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: all 0.25s; border: 1px solid var(--white); cursor: pointer; font-family: 'Inter', sans-serif; display: inline-block; }
+.btn-white:hover { background: transparent; color: var(--white); }
+.btn-outline-white { background: transparent; color: var(--white); padding: 0.9rem 2rem; text-decoration: none; font-size: 0.75rem; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase; transition: all 0.25s; border: 1px solid rgba(255,255,255,0.3); cursor: pointer; font-family: 'Inter', sans-serif; display: inline-block; }
+.btn-outline-white:hover { border-color: var(--white); }
+.hero-stats { display: flex; gap: 3rem; margin-top: 5rem; padding-top: 3rem; border-top: 1px solid rgba(255,255,255,0.1); }
+.stat-n { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--white); line-height: 1; display: block; }
+.stat-l { font-size: 0.7rem; color: var(--grey-400); letter-spacing: 1px; margin-top: 0.2rem; }
+.hero-right { background: #111; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+
+/* STRIP */
+.intro-strip { background: var(--black); color: var(--white); padding: 3rem 6%; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+.intro-strip p { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.1rem, 2vw, 1.6rem); font-weight: 300; font-style: italic; max-width: 680px; line-height: 1.5; color: rgba(255,255,255,0.8); }
+.intro-strip a { white-space: nowrap; text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--white); font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.35); padding-bottom: 2px; transition: border-color 0.2s; }
+.intro-strip a:hover { border-color: var(--white); }
+
+/* SECTIONS */
+.container { max-width: 1180px; margin: 0 auto; padding: 0 6%; }
+.section-label { font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase; color: var(--grey-400); display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; }
+.section-label::before { content: ''; width: 24px; height: 1px; background: var(--grey-400); }
+.section-h { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; line-height: 1.15; letter-spacing: -0.3px; }
+.section-h em { font-style: italic; }
+.body-txt { font-size: 0.93rem; line-height: 1.8; color: var(--grey-600); font-weight: 300; }
+.body-txt strong { color: var(--black); font-weight: 500; }
+
+/* WHAT */
+.what-section { padding: 8rem 0; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+.visual-box { background: var(--grey-100); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.label-tag { position: absolute; bottom: 1.5rem; left: 1.5rem; background: var(--black); color: var(--white); font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; padding: 0.4rem 0.8rem; }
+
+/* TEKENING */
+.tekening-section { padding: 0 0 8rem; }
+.tekening-inner { background: var(--grey-100); padding: 5rem 6%; display: grid; grid-template-columns: 1fr 2fr; gap: 5rem; align-items: start; }
+
+/* PRIJS */
+.prijs-section { padding: 8rem 0; }
+.prijs-range { display: flex; align-items: baseline; gap: 0.6rem; margin: 2rem 0 2.5rem; }
+.prijs-from { font-size: 0.72rem; color: var(--grey-400); letter-spacing: 1px; text-transform: uppercase; }
+.prijs-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; line-height: 1; }
+.prijs-to { font-size: 0.72rem; color: var(--grey-400); letter-spacing: 1px; text-transform: uppercase; }
+.badges { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; }
+.badge { border: 1px solid var(--border); padding: 2rem 1.5rem; text-align: center; }
+.badge-icon { font-size: 1.5rem; display: block; margin-bottom: 0.6rem; }
+.badge-txt { font-size: 0.8rem; color: var(--grey-600); line-height: 1.4; }
+.btn-black { background: var(--black); color: var(--white); padding: 0.9rem 2rem; text-decoration: none; font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: background 0.25s; border: 1px solid var(--black); display: inline-block; cursor: pointer; font-family: 'Inter', sans-serif; }
+.btn-black:hover { background: var(--grey-800); }
+.btn-outline { background: transparent; color: var(--black); padding: 0.9rem 2rem; text-decoration: none; font-size: 0.75rem; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase; transition: all 0.25s; border: 1px solid var(--border); display: inline-block; cursor: pointer; font-family: 'Inter', sans-serif; }
+.btn-outline:hover { border-color: var(--black); }
+
+/* PROCESS */
+.process-section { padding: 8rem 0; background: var(--black); color: var(--white); }
+.process-section .section-label { color: var(--grey-400); }
+.process-steps { display: grid; grid-template-columns: repeat(4,1fr); margin-top: 4rem; }
+.step { padding: 3rem 2.5rem; border-left: 1px solid rgba(255,255,255,0.08); }
+.step:first-child { border-left: none; padding-left: 0; }
+.step-num { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300; color: rgba(255,255,255,0.06); line-height: 1; margin-bottom: 1.5rem; display: block; }
+.step-title { font-size: 0.92rem; font-weight: 500; color: var(--white); margin-bottom: 0.8rem; }
+.step-desc { font-size: 0.83rem; color: var(--grey-400); line-height: 1.7; font-weight: 300; }
+
+/* VERGUNNING */
+.vergunning-section { padding: 8rem 0; }
+.aside-box { background: var(--grey-100); padding: 3rem; }
+.aside-box h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; margin-bottom: 1.2rem; }
+
+/* FAQ */
+.faq-section { padding: 8rem 0; background: var(--grey-100); }
+.faq-list { max-width: 800px; }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-q { width: 100%; text-align: left; background: none; border: none; padding: 1.5rem 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: 500; color: var(--black); font-family: 'Inter', sans-serif; }
+.faq-icon { width: 22px; height: 22px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; color: var(--grey-400); transition: all 0.2s; }
+.faq-item.open .faq-icon { background: var(--black); color: var(--white); border-color: var(--black); }
+.faq-a { font-size: 0.87rem; line-height: 1.8; color: var(--grey-600); font-weight: 300; padding-bottom: 1.5rem; display: none; max-width: 640px; }
+.faq-item.open .faq-a { display: block; }
+
+/* TRACK */
+.track-section { padding: 8rem 0; }
+.track-grid { display: grid; grid-template-columns: repeat(3,1fr); border: 1px solid var(--border); }
+.track-item { padding: 4rem 3rem; border-right: 1px solid var(--border); text-align: center; }
+.track-item:last-child { border-right: none; }
+.track-num { font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; font-weight: 300; line-height: 1; display: block; margin-bottom: 0.5rem; }
+.track-label { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--grey-400); }
+
+/* REVIEWS */
+.reviews-section { padding: 8rem 0; background: var(--black); color: var(--white); }
+.reviews-section .section-label { color: var(--grey-400); }
+.reviews-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 4rem; }
+.review-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 2rem; }
+.review-stars { font-size: 0.75rem; letter-spacing: 2px; margin-bottom: 1rem; color: var(--white); }
+.review-text { font-family: 'Cormorant Garamond', serif; font-size: 1rem; line-height: 1.7; color: rgba(255,255,255,0.6); font-style: italic; margin-bottom: 1.5rem; }
+.review-author { font-size: 0.72rem; letter-spacing: 1px; color: rgba(255,255,255,0.35); text-transform: uppercase; }
+
+/* CTA */
+.cta-section { padding: 10rem 6%; display: flex; flex-direction: column; align-items: center; text-align: center; border-top: 1px solid var(--border); }
+.cta-section .section-label { justify-content: center; }
+.cta-section .section-label::before { display: none; }
+.cta-section h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 300; line-height: 1.1; max-width: 700px; margin: 1rem auto 1.5rem; letter-spacing: -1px; }
+.cta-section p { font-size: 0.93rem; color: var(--grey-600); max-width: 500px; margin-bottom: 3rem; line-height: 1.7; font-weight: 300; }
+.cta-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+/* FOOTER */
+footer { background: var(--black); color: var(--white); padding: 5rem 6% 3rem; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; padding-bottom: 4rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; font-weight: 600; color: var(--white); text-decoration: none; display: block; margin-bottom: 1rem; }
+.footer-logo span { font-style: italic; font-weight: 300; }
+.footer-brand p { font-size: 0.82rem; color: rgba(255,255,255,0.35); line-height: 1.7; font-weight: 300; max-width: 280px; }
+.footer-hours { margin-top: 1.5rem; }
+.footer-hours p { font-size: 0.8rem; color: rgba(255,255,255,0.35); line-height: 1.9; }
+.footer-hours strong { color: rgba(255,255,255,0.65); font-weight: 500; }
+.footer-col h4 { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 1.5rem; }
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 0.7rem; }
+.footer-col a { text-decoration: none; color: rgba(255,255,255,0.5); font-size: 0.83rem; transition: color 0.2s; }
+.footer-col a:hover { color: var(--white); }
+.footer-bottom { padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-bottom p, .footer-bottom a { font-size: 0.76rem; color: rgba(255,255,255,0.25); text-decoration: none; }
+.footer-bottom a:hover { color: rgba(255,255,255,0.6); }
+.footer-bottom-links { display: flex; gap: 2rem; }
+
+/* CHATBOT */
+#chat-btn { position: fixed; bottom: 2rem; right: 2rem; width: 56px; height: 56px; background: var(--black); color: var(--white); border: none; cursor: pointer; z-index: 999; font-size: 1.3rem; box-shadow: 0 4px 24px rgba(0,0,0,0.22); transition: all 0.25s; display: flex; align-items: center; justify-content: center; }
+#chat-btn:hover { background: var(--grey-800); transform: scale(1.06); }
+#chat-window { position: fixed; bottom: 5.5rem; right: 2rem; width: 380px; max-height: 560px; background: var(--white); box-shadow: 0 20px 60px rgba(0,0,0,0.16); display: flex; flex-direction: column; z-index: 998; overflow: hidden; transform: translateY(16px) scale(0.97); opacity: 0; pointer-events: none; transition: all 0.28s cubic-bezier(0.34,1.56,0.64,1); border: 1px solid var(--border); }
+#chat-window.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: all; }
+.chat-header { background: var(--black); color: var(--white); padding: 1.1rem 1.3rem; display: flex; align-items: center; gap: 0.9rem; }
+.chat-avatar { width: 36px; height: 36px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; flex-shrink: 0; }
+.chat-header-info h4 { font-size: 0.87rem; font-weight: 500; }
+.chat-header-info p { font-size: 0.7rem; opacity: 0.45; margin-top: 1px; }
+.online-dot { width: 7px; height: 7px; background: #4ADE80; border-radius: 50%; display: inline-block; margin-right: 4px; }
+.chat-messages { flex: 1; overflow-y: auto; padding: 1.2rem; display: flex; flex-direction: column; gap: 0.7rem; background: var(--grey-100); }
+.msg { max-width: 84%; padding: 0.75rem 1rem; font-size: 0.84rem; line-height: 1.55; animation: fadeUp 0.22s ease; }
+.msg.bot { background: var(--white); color: var(--black); border: 1px solid var(--border); align-self: flex-start; }
+.msg.user { background: var(--black); color: var(--white); align-self: flex-end; }
+.msg.typing { background: var(--white); border: 1px solid var(--border); align-self: flex-start; display: flex; gap: 4px; align-items: center; padding: 1rem; }
+.dot { width: 6px; height: 6px; background: var(--grey-400); border-radius: 50%; animation: bounce 1.2s infinite; }
+.dot:nth-child(2) { animation-delay: 0.15s; }
+.dot:nth-child(3) { animation-delay: 0.3s; }
+.quick-replies { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0.6rem 1rem; background: var(--white); border-top: 1px solid var(--border); }
+.quick-btn { background: var(--white); border: 1px solid var(--border); padding: 0.35rem 0.8rem; font-size: 0.73rem; cursor: pointer; color: var(--black); font-family: 'Inter', sans-serif; font-weight: 400; transition: all 0.18s; }
+.quick-btn:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+.chat-input-row { display: flex; border-top: 1px solid var(--border); background: var(--white); }
+#chat-input { flex: 1; border: none; outline: none; padding: 0.85rem 1rem; font-size: 0.84rem; font-family: 'Inter', sans-serif; background: transparent; color: var(--black); }
+#chat-input::placeholder { color: var(--grey-400); }
+#send-btn { background: var(--black); color: var(--white); border: none; padding: 0 1.2rem; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: background 0.18s; }
+#send-btn:hover { background: var(--grey-800); }
+
+@keyframes bounce { 0%,80%,100% { transform: translateY(0); } 40% { transform: translateY(-5px); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-left { min-height: 100vh; padding: 12% 8% 10%; }
+  .hero-stats { margin-top: 3rem; }
+  .two-col, .tekening-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .process-steps { grid-template-columns: 1fr 1fr; }
+  .reviews-grid, .track-grid { grid-template-columns: 1fr; }
+  .track-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .nav-links { display: none; }
+  .badges { grid-template-columns: 1fr; }
+  #chat-window { width: calc(100vw - 2rem); right: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Mira <span>Veranda</span></a>
+  <ul class="nav-links">
+    <li><a href="#wat">Veranda bouwen</a></li>
+    <li><a href="#proces">Werkwijze</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#" class="nav-cta" onclick="openChat();return false;">Offerte aanvragen</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <span class="hero-eyebrow">Mira Veranda — Maatwerk uit eigen fabriek</span>
+    <h1>Veranda<br><em>bouwen</em><br>op maat</h1>
+    <p class="hero-sub">Premium aluminium veranda's in heel Nederland, België, Duitsland en Frankrijk. Van ontwerp tot montage — volledig verzorgd door ons eigen team.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-white" onclick="openChat();return false;">Gratis offerte</a>
+      <a href="#wat" class="btn-outline-white">Meer informatie</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="stat-n">16+</span><span class="stat-l">Jaar ervaring</span></div>
+      <div><span class="stat-n">10.000+</span><span class="stat-l">Projecten</span></div>
+      <div><span class="stat-n">35+</span><span class="stat-l">Teamleden</span></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <svg width="460" height="400" viewBox="0 0 460 400" xmlns="http://www.w3.org/2000/svg" opacity="0.5">
+      <text x="230" y="44" text-anchor="middle" fill="rgba(255,255,255,0.12)" font-family="Inter,sans-serif" font-size="9" letter-spacing="5">ALUMINIUM VERANDA — TOPLINE</text>
+      <line x1="80" y1="52" x2="170" y2="52" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+      <line x1="290" y1="52" x2="380" y2="52" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+      <!-- Roof bar -->
+      <rect x="50" y="72" width="360" height="13" fill="rgba(255,255,255,0.2)" rx="2"/>
+      <!-- Rafters -->
+      <line x1="110" y1="72" x2="110" y2="320" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+      <line x1="170" y1="72" x2="170" y2="320" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+      <line x1="230" y1="72" x2="230" y2="320" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+      <line x1="290" y1="72" x2="290" y2="320" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+      <line x1="350" y1="72" x2="350" y2="320" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+      <!-- Columns -->
+      <rect x="56" y="84" width="10" height="236" fill="rgba(255,255,255,0.22)" rx="2"/>
+      <rect x="394" y="84" width="10" height="236" fill="rgba(255,255,255,0.22)" rx="2"/>
+      <!-- Glass wall panels -->
+      <rect x="66" y="86" width="76" height="234" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+      <rect x="318" y="86" width="76" height="234" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+      <!-- Back wall -->
+      <rect x="66" y="86" width="328" height="234" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+      <!-- Floor -->
+      <rect x="56" y="318" width="348" height="7" fill="rgba(255,255,255,0.25)" rx="1"/>
+      <!-- Floor lines -->
+      <line x1="115" y1="318" x2="115" y2="325" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
+      <line x1="173" y1="318" x2="173" y2="325" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
+      <line x1="231" y1="318" x2="231" y2="325" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
+      <line x1="289" y1="318" x2="289" y2="325" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
+      <line x1="347" y1="318" x2="347" y2="325" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
+      <!-- Furniture -->
+      <rect x="160" y="265" width="140" height="50" fill="rgba(255,255,255,0.05)" rx="4"/>
+      <rect x="148" y="246" width="164" height="22" fill="rgba(255,255,255,0.07)" rx="4"/>
+      <circle x="198" y="278" r="5" fill="rgba(255,255,255,0.07)" cx="198" cy="278"/>
+      <circle x="262" y="278" r="5" fill="rgba(255,255,255,0.07)" cx="262" cy="278"/>
+      <!-- Dimension arrows -->
+      <line x1="56" y1="345" x2="404" y2="345" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+      <line x1="56" y1="340" x2="56" y2="350" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+      <line x1="404" y1="340" x2="404" y2="350" stroke="rgba(255,255,255,0.15)" stroke-width="0.8"/>
+      <text x="230" y="360" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="Inter,sans-serif" font-size="8" letter-spacing="2">BREEDTE OP MAAT</text>
+      <!-- LED dots -->
+      <circle cx="140" cy="78" r="2" fill="rgba(255,255,255,0.4)"/>
+      <circle cx="200" cy="78" r="2" fill="rgba(255,255,255,0.4)"/>
+      <circle cx="260" cy="78" r="2" fill="rgba(255,255,255,0.4)"/>
+      <circle cx="320" cy="78" r="2" fill="rgba(255,255,255,0.4)"/>
+    </svg>
+  </div>
+</section>
+
+<!-- INTRO STRIP -->
+<div class="intro-strip">
+  <p>"Beste prijs-kwaliteit bij onze veranda groothandel — compleet op maat, inclusief professionele montage door ons eigen team."</p>
+  <a href="#" onclick="openChat();return false;">Kom direct de prijs te weten →</a>
+</div>
+
+<!-- WAT IS EEN VERANDA -->
+<section class="what-section" id="wat">
+  <div class="container">
+    <div class="two-col">
+      <div class="visual-box">
+        <svg width="340" height="260" viewBox="0 0 340 260" xmlns="http://www.w3.org/2000/svg" opacity="0.35">
+          <rect x="20" y="30" width="300" height="5" fill="#333" rx="2"/>
+          <line x1="80" y1="35" x2="80" y2="220" stroke="#555" stroke-width="1.2"/>
+          <line x1="170" y1="35" x2="170" y2="220" stroke="#555" stroke-width="1.2"/>
+          <line x1="260" y1="35" x2="260" y2="220" stroke="#555" stroke-width="1.2"/>
+          <rect x="25" y="38" width="9" height="182" fill="#666" rx="2"/>
+          <rect x="306" y="38" width="9" height="182" fill="#666" rx="2"/>
+          <rect x="20" y="218" width="300" height="6" fill="#555" rx="1"/>
+          <rect x="120" y="150" width="100" height="65" fill="#bbb" rx="3" opacity="0.4"/>
+          <rect x="110" y="136" width="120" height="16" fill="#aaa" rx="3" opacity="0.4"/>
+        </svg>
+        <span class="label-tag">Veranda op maat</span>
+      </div>
+      <div>
+        <span class="section-label">Over veranda bouwen</span>
+        <h2 class="section-h" style="margin-top:0.5rem">Wat betekent een veranda <em>bouwen aan huis?</em></h2>
+        <p class="body-txt" style="margin-top:1.5rem">Een veranda bouwen aan huis betekent dat de overkapping direct tegen je woning wordt geplaatst. Zo ontstaat een <strong>verlengstuk van je huis</strong> waar je beschut en comfortabel buiten kunt zitten, ongeacht het weer.</p>
+        <p class="body-txt" style="margin-top:1rem">Bij Mira Veranda kun je de complete veranda bestellen en — als je over de juiste ervaring beschikt — zelf monteren. Heb je geen ervaring? Dan verzorgen wij ook de volledige <strong>professionele montage</strong>.</p>
+        <p class="body-txt" style="margin-top:1rem">Mira Veranda maakt altijd een maatwerktekening voor een optimale afstemming op jouw woning en tuin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAAROM TEKENING -->
+<section class="tekening-section">
+  <div class="container">
+    <div class="tekening-inner">
+      <div>
+        <span class="section-label">Werkwijze</span>
+        <h2 class="section-h" style="font-size:1.8rem;margin-top:0.5rem">Waarom een veranda bouwen met een tekening?</h2>
+      </div>
+      <div>
+        <p class="body-txt">Een tekening helpt bij het visualiseren van het ontwerp, de afmetingen en de plaatsing van de veranda. Zo weet je precies hoe de veranda eruitziet en kunnen eventuele aanpassingen vooraf worden doorgevoerd.</p>
+        <p class="body-txt" style="margin-top:1rem">Mira Veranda maakt altijd een <strong>maatwerktekening</strong> voor een optimale afstemming op jouw woning en tuin — zodat het eindresultaat precies aansluit bij jouw wensen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIJS -->
+<section class="prijs-section" id="prijs">
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <span class="section-label">Investering</span>
+        <h2 class="section-h" style="margin-top:0.5rem">Wat kost het bouwen van een <em>veranda aan huis?</em></h2>
+        <p class="body-txt" style="margin-top:1.5rem">De prijs hangt af van de afmetingen, het materiaal en eventuele extra opties zoals glazen schuifwanden, screens of verlichting. Maatwerk bij Mira Veranda zorgt ervoor dat je veranda perfect aansluit bij jouw wensen.</p>
+        <div class="prijs-range">
+          <span class="prijs-from">Vanaf</span>
+          <span class="prijs-num">€ 3.000</span>
+          <span class="prijs-to">tot € 12.000 incl. montage</span>
+        </div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap">
+          <a href="#" class="btn-black" onclick="openChat();return false;">Kom direct de prijs te weten</a>
+          <a href="#faq" class="btn-outline">Veelgestelde vragen</a>
+        </div>
+      </div>
+      <div class="badges">
+        <div class="badge"><span class="badge-icon">◆</span><span class="badge-txt">De beste prijs-kwaliteit</span></div>
+        <div class="badge"><span class="badge-icon">◆</span><span class="badge-txt">Maatwerk mogelijk</span></div>
+        <div class="badge"><span class="badge-icon">◆</span><span class="badge-txt">De snelste levering</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section" id="proces">
+  <div class="container">
+    <span class="section-label">Hoe werkt het</span>
+    <h2 class="section-h" style="color:white">Hoe gaat het bouwen van een <em>veranda in zijn werk?</em></h2>
+    <div class="process-steps">
+      <div class="step">
+        <span class="step-num">01</span>
+        <div class="step-title">Offerte aanvragen</div>
+        <p class="step-desc">Bij ons kunt u eenvoudig een offerte aanvragen. Ons team staat klaar om uw wensen te bespreken en een op maat gemaakte oplossing te bieden.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <div class="step-title">Wij reageren binnen 24 uur</div>
+        <p class="step-desc">Snelheid en efficiëntie staan bij ons voorop. Wij garanderen dat u binnen 24 uur een reactie ontvangt op uw aanvraag.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <div class="step-title">Inmeten & tekening</div>
+        <p class="step-desc">Wij meten de situatie bij u thuis op en maken een maatwerktekening zodat alles perfect aansluit op uw woning en tuin.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">04</span>
+        <div class="step-title">Start van project</div>
+        <p class="step-desc">Zodra de offerte is goedgekeurd gaan wij direct aan de slag. Professionele montage door ons eigen team — met duidelijke planning en regelmatige updates.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VERGUNNING -->
+<section class="vergunning-section" id="vergunning">
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <span class="section-label">Vergunning</span>
+        <h2 class="section-h" style="margin-top:0.5rem">Heb je een vergunning nodig voor een <em>veranda aan huis?</em></h2>
+        <p class="body-txt" style="margin-top:1.5rem">Vaak mag een veranda zonder vergunning worden geplaatst, mits deze voldoet aan de landelijke regels voor bijgebouwen. Omdat regels per gemeente kunnen verschillen, adviseren wij altijd vooraf de mogelijkheden te checken.</p>
+        <p class="body-txt" style="margin-top:1rem">Mira Veranda ondersteunt je hierbij indien nodig.</p>
+      </div>
+      <div class="aside-box">
+        <h3>Bouw uw veranda op maat bij <em>Mira Veranda</em></h3>
+        <p class="body-txt" style="margin-bottom:2rem">Wil je een veranda bouwen die perfect aansluit bij jouw woning en tuin? Bij Mira Veranda leveren we maatwerk van ontwerp tot montage, inclusief professionele tekeningen. Vraag vandaag nog een vrijblijvende offerte aan!</p>
+        <a href="#" class="btn-black" onclick="openChat();return false;">Vrijblijvende offerte aanvragen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <span class="section-label">FAQ</span>
+    <h2 class="section-h" style="margin-bottom:3rem">Veel gestelde <em>vragen</em></h2>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <button class="faq-q" onclick="toggleFaq(this)">Leveren jullie glazen schuifwanden op maat?<span class="faq-icon">−</span></button>
+        <p class="faq-a">Ja, onze glazen schuifwanden worden altijd op maat gemaakt. Je bepaalt zelf de afmetingen, het aantal rails, het type glas (meestal 10 mm veiligheidsglas) en de afwerking zoals grepen, meenemers en onderprofielen.</p>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Kan ik de glazen wanden volledig openen of sluiten?<span class="faq-icon">+</span></button>
+        <p class="faq-a">Zeker. De panelen schuiven onafhankelijk van elkaar, waardoor je ze flexibel kunt openen of sluiten. Zo creëer je in een handomdraai een open of juist afgesloten ruimte — afhankelijk van het weer of je voorkeur.</p>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Zijn de glazen schuifwanden goed bestand tegen wind en regen?<span class="faq-icon">+</span></button>
+        <p class="faq-a">Ja. Dankzij het gebruik van gehard glas en slimme afwateringssystemen bieden onze schuifwanden goede bescherming tegen wind, neerslag en tocht. Voor extra isolatie kunnen tochtborstels of bodemprofielen worden toegevoegd.</p>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Moet ik de glazen wanden vaak onderhouden?<span class="faq-icon">+</span></button>
+        <p class="faq-a">Nee, glazen schuifwanden zijn onderhoudsarm. Het glas en de rails zijn eenvoudig schoon te maken. We adviseren periodiek reinigen en het vrijhouden van de onderrails voor optimale werking.</p>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Heb ik een vergunning nodig voor een veranda?<span class="faq-icon">+</span></button>
+        <p class="faq-a">Vaak mag een veranda zonder vergunning worden geplaatst, mits deze voldoet aan de landelijke regels voor bijgebouwen. Omdat regels per gemeente kunnen verschillen, adviseren wij altijd vooraf de mogelijkheden te checken. Mira Veranda ondersteunt u hierbij indien nodig.</p>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Wat kost een veranda gemiddeld?<span class="faq-icon">+</span></button>
+        <p class="faq-a">Gemiddeld liggen de kosten tussen €3.000 en €12.000, inclusief montage. De exacte prijs hangt af van de afmetingen, het type dak (polycarbonaat of glas), kleuren en extra opties zoals zonwering, screens of verlichting. Vraag een vrijblijvende offerte aan via onze chat voor een directe prijsopgave op maat.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACK RECORD -->
+<section class="track-section">
+  <div class="container">
+    <div style="margin-bottom:4rem">
+      <span class="section-label">Trackrecord</span>
+      <h2 class="section-h">Bewezen <em>vakmanschap</em></h2>
+    </div>
+    <div class="track-grid">
+      <div class="track-item"><span class="track-num">16+</span><span class="track-label">Jaar ervaring</span></div>
+      <div class="track-item"><span class="track-num">10.000+</span><span class="track-label">Afgeronde projecten</span></div>
+      <div class="track-item"><span class="track-num">35+</span><span class="track-label">Teamleden</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section">
+  <div class="container">
+    <span class="section-label">Google reviews</span>
+    <h2 class="section-h" style="color:white">Wat klanten <em>zeggen</em></h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Van begin tot einde zijn we hartstikke goed geholpen. Mo heeft voor ons zijn uiterste best gedaan. Prijs kwaliteit verhouding is prima — binnen een paar uur een geweldige veranda neergezet."</p>
+        <span class="review-author">Rochi Karjasemita · Google</span>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Veranda 5×3,5 laten plaatsen — echt een topbedrijf, komen alle afspraken na en in 1 dag geplaatst. Mo (Mahmut) denkt met je mee, komt zijn afspraken na. Al met al een topbedrijf, zeker een aanrader."</p>
+        <span class="review-author">Huseyin Cimtay · Google</span>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Ze houden goed contact, maken een afspraak voor het inmeten en werken snel en professioneel. De mannen zijn goed op elkaar ingespeeld. Dezelfde middag staat je veranda compleet klaar. Complimenten!"</p>
+        <span class="review-author">Youssef · Google</span>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Mijn 2e opdracht weer uitbesteed aan Mira Veranda. 8 glaspanelen geplaatst in mijn overkapping — mooi werk afgeleverd, netjes en schoon achtergelaten. Zeer tevreden over de monteurs!"</p>
+        <span class="review-author">Co Bounin · Google</span>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"De heren hebben alles zeer netjes binnen 6 uur geplaatst. De jongens werken snel en secuur. Ik ben zeer tevreden over het resultaat en raad Mira Veranda zeker aan!"</p>
+        <span class="review-author">E Oz · Google</span>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Van begin tot eind professioneel advies gegeven, snel afspraak gepland. Jullie zijn toppers — kwaliteit, prijsverhouding en klantvriendelijkheid geef ik een 10! Nogmaals bedankt voor alles Mo!"</p>
+        <span class="review-author">Sirin Ozkan · Google</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <span class="section-label">Aan de slag</span>
+  <h2>Uw veranda laten <em>bouwen?</em></h2>
+  <p>Vraag vandaag nog een vrijblijvende offerte aan. Wij reageren binnen 24 uur en stellen een maatwerktekening voor u samen.</p>
+  <div class="cta-btns">
+    <a href="#" class="btn-black" onclick="openChat();return false;">Offerte aanvragen via chat</a>
+    <a href="tel:0850609566" class="btn-outline">085 060 9566</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="footer-logo">Mira <span>Veranda</span></a>
+      <p>Bij Mira Veranda vind je ras-professionals die werken met uitsluitend hoogwaardige kwaliteitsproducten met een lange levensduur.</p>
+      <div class="footer-hours">
+        <p><strong>Ma – Do:</strong> 09:00 – 17:00</p>
+        <p><strong>Vrijdag:</strong> 09:00 – 18:00</p>
+        <p><strong>Za – Zo:</strong> Gesloten</p>
+        <p style="margin-top:0.8rem;color:rgba(255,255,255,0.25)">Belder 5, 4704 RK Roosendaal</p>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Diensten</h4>
+      <ul>
+        <li><a href="#">Veranda</a></li>
+        <li><a href="#">Schuifpui</a></li>
+        <li><a href="#">Glazen schuifwand</a></li>
+        <li><a href="#">Screens</a></li>
+        <li><a href="#">Zonwering</a></li>
+        <li><a href="#">PVC kozijnen</a></li>
+        <li><a href="#">Schuttingen</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Informatie</h4>
+      <ul>
+        <li><a href="#">Over ons</a></li>
+        <li><a href="#">Service</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#" onclick="openChat();return false;">Offerte aanvragen</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:0850609566">085 060 9566</a></li>
+        <li><a href="mailto:info@mira-veranda.com">info@mira-veranda.com</a></li>
+        <li><a href="https://www.mira-veranda.eu" target="_blank">www.mira-veranda.eu</a></li>
+        <li style="margin-top:0.8rem"><a href="https://www.facebook.com/miraveranda/" target="_blank">Facebook</a></li>
+        <li><a href="https://www.instagram.com/mira_veranda/" target="_blank">Instagram</a></li>
+        <li><a href="https://www.tiktok.com/@mira_veranda" target="_blank">TikTok</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Mira-veranda.eu — Alle Rechten Voorbehouden</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Algemene voorwaarden</a>
+    </div>
+  </div>
+</footer>
+
+<!-- CHATBOT -->
+<button id="chat-btn" onclick="toggleChat()" title="Chat met ons">💬</button>
+<div id="chat-window">
+  <div class="chat-header">
+    <div class="chat-avatar">M</div>
+    <div class="chat-header-info">
+      <h4>Mira Veranda Assistent</h4>
+      <p><span class="online-dot"></span>Online — antwoord binnen seconden</p>
+    </div>
+  </div>
+  <div class="chat-messages" id="chat-messages"></div>
+  <div class="quick-replies" id="quick-replies"></div>
+  <div class="chat-input-row">
+    <input type="text" id="chat-input" placeholder="Stel een vraag over prijzen, afmetingen…" onkeydown="if(event.key==='Enter') sendMessage()"/>
+    <button id="send-btn" onclick="sendMessage()">Stuur</button>
+  </div>
+</div>
+
+<script>
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-icon').textContent = '+'; });
+  if (!isOpen) { item.classList.add('open'); btn.querySelector('.faq-icon').textContent = '−'; }
+}
+
+let chatOpen = false, conversationHistory = [], chatStarted = false;
+
+const PRICE_LIST = `
+MIRA VERANDA OFFICIËLE PRIJSLIJST 2025 | www.mira-veranda.eu | Tel: 085 060 9566
+
+=== 1. POLYCARBONAAT DAK (Topline 16mm X-structuur) ===
+KOLOMMEN = BREEDTE, RIJEN = DIEPTE:
+       300   400   500   600   700   800   900  1000  1100  1200
+200: €790  €930  €1045 €1175 €1320 €1520 €1835 €1975 €2220 €2510
+250: €965  €1085 €1290 €1455 €1600 €1730 €2180 €2360 €2615 €2665
+300: €1075 €1260 €1495 €1625 €1780 €1910 €2445 €2725 €2885 €3080
+350: €1260 €1390 €1595 €1855 €1990 €2100 €2575 €2970 €3175 €3275
+400: €1400 €1570 €1815 €1975 €2100 €2225 €2720 €3275 €3550 €3640
+450: €1670 €1825 €2065 €2335 €2635 €2885 €3095 €3685 €4155 €4285
+500: €1845 €1955 €2200 €2640 €2875 €3160 €3625 €4235 €4755 €4980
+
+=== 2. GLAZEN DAK (Topline Glas 4.4.2.) ===
+KOLOMMEN = BREEDTE (+6cm), RIJEN = DIEPTE:
+       306   406   506   606   706   806   906  1006  1106  1206
+200: €1275 €1520 €1760 €2005 €2245 €2490 €2975 €3275 €3410 €4125
+250: €1395 €1640 €1880 €2125 €2365 €2610 €3095 €3400 €3760 €4430
+300: €1640 €1880 €2190 €2370 €2730 €2910 €3460 €3850 €4190 €4550
+350: €2060 €2365 €2730 €3100 €3400 €3760 €4305 €4750 €5220 €5580
+400: €2450 €2790 €3220 €3580 €3945 €4125 €4850 €5400 €5830 €6370
+Getint glas meerprijs: €35/m2 | LED per ligger: 300cm €50, 350cm €75, 400cm €125, 450cm €170 | LED RGB: 300cm €75, 350cm €100, 400cm €150, 450cm €195
+
+=== 3. ZONWERING ===
+RIJEN=DIEPTE, KOLOMMEN=BREEDTE: 250d: 300b €1280, 400b €1350, 500b €1550, 600b €1700 | 300d: €1300, €1400, €1600, €1750 | 350d: €1350, €1450, €1650, €1800 | 400d: €1450, €1600, €1700, €1900
+Toebehoren: Afstandsbediening €55 | Motor 40 €215 | Motor 20 €185 | Doek/m2 €26,65
+
+=== 4. SCREENS ===
+100d: 100b €475, 150b €525, 200b €545, 250b €595, 300b €665, 400b €745, 500b €745, 550b €895 | 150d: €615,€595,€605,€685,€745,€895,€895,€905 | 300d: €645,€695,€765,€855,€965,€1005,€1325,€1325
+
+=== 5. SCHUIFPUI ===
+4-delig: 400cm €1500, 500cm €1600, 600cm €1700 | 2-delig: 300cm €1200, 400cm €1300 | Getint glas +€35/m2
+
+=== 6. GLAZENWANDEN ===
+3 panelen helder €581, getint €641 | 4 panelen helder €774, getint €857 | 5 panelen helder €968, getint €1071 | 6 panelen helder €1162, getint €1283
+
+=== 7. ZIJWAND & SPIE ===
+Polycarbonaat spie: 250cm €90, 300cm €100, 350cm €116, 400cm €132, 450cm €147, 500cm €158
+Sandwichpaneel zijwand: 300cm €165, 400cm €220, 500cm €465
+Aluminium zijwand F-Profiel: 200cm €342, 250cm €430, 300cm €515, 350cm €600, 400cm €685
+
+=== 8. VASTKOZIJN ===
+zonder/met glas: 100cm €293/€391, 150cm €376/€501, 200cm €457/€610, 300cm €819/€1093, 400cm €1035/€1379, 500cm €1208/€1611
+
+=== 9. ACCESSOIRES ===
+Tochtstrip €11 | Handvat €10 | Slot-set €135 | Wielen €8/stuk
+Glaspaneel helder incl wielen €110/m | excl wielen €100/m | getint incl wielen €120/m
+Railsysteem €107/m | LED-lamp 1w €6,05 | LED dimbaar €26,62
+
+Kleuren: Antraciet, Zwart, Crème/Wit`;
+
+const SYSTEM_PROMPT = `Je bent een vriendelijke en professionele verkoopmedewerker van Mira Veranda & Overkapping. Website: www.mira-veranda.eu | Tel: 085 060 9566 | Email: info@mira-veranda.com | Showroom: Belder 5, Roosendaal (ma-do 9-17, vr 9-18)
+
+Taken: klanten helpen met vragen, prijsopgaves geven, producten uitleggen, offertes samenstellen, doorverwijzen naar showroom.
+
+Gedragsregels:
+- Spreek Nederlands (tenzij klant anders communiceert)
+- Vraag altijd BREEDTE en DIEPTE in cm voor een prijsopgave
+- TABELSTRUCTUUR: KOLOMMEN = BREEDTE (horizontaal), RIJEN = DIEPTE (verticaal)
+  Voorbeeld: breedte 300cm × diepte 200cm → €790 (kolom 300, rij 200)
+  NOOIT omwisselen! Controleer altijd dubbel.
+- Geef prijs altijd met afmeting: "300cm breed × 200cm diep = €790"
+- Verzin NOOIT prijzen — gebruik alleen de prijslijst hieronder
+- Bondig antwoorden (3-4 zinnen max)
+- Sluit af met een call-to-action
+
+${PRICE_LIST}`;
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chat-window').classList.toggle('open', chatOpen);
+  document.getElementById('chat-btn').textContent = chatOpen ? '✕' : '💬';
+  if (chatOpen && !chatStarted) initChat();
+}
+function openChat() { chatOpen = false; toggleChat(); }
+
+function initChat() {
+  chatStarted = true;
+  addBotMessage("Welkom bij Mira Veranda! 👋 Ik help u graag met een vrijblijvende prijsopgave of productadvies. Wat kan ik voor u betekenen?");
+  setTimeout(() => showQuickReplies(["Polycarbonaat dak prijzen","Glazen dak prijzen","Zonwering & Screens","Schuifpui of glazenwanden"]), 500);
+}
+
+function addBotMessage(text) {
+  const el = document.createElement('div');
+  el.className = 'msg bot';
+  el.innerHTML = text.replace(/\n/g,'<br>');
+  document.getElementById('chat-messages').appendChild(el);
+  scrollChat();
+  conversationHistory.push({role:'assistant',content:text});
+}
+function addUserMessage(text) {
+  const el = document.createElement('div');
+  el.className = 'msg user'; el.textContent = text;
+  document.getElementById('chat-messages').appendChild(el);
+  scrollChat();
+  conversationHistory.push({role:'user',content:text});
+}
+function showTyping() {
+  const el = document.createElement('div');
+  el.className = 'msg typing'; el.id = 'typing';
+  el.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+  document.getElementById('chat-messages').appendChild(el); scrollChat();
+}
+function removeTyping() { const t = document.getElementById('typing'); if(t) t.remove(); }
+function showQuickReplies(replies) {
+  const c = document.getElementById('quick-replies'); c.innerHTML = '';
+  replies.forEach(r => {
+    const btn = document.createElement('button');
+    btn.className = 'quick-btn'; btn.textContent = r;
+    btn.onclick = () => { c.innerHTML = ''; sendUserText(r); };
+    c.appendChild(btn);
+  });
+}
+function scrollChat() { const c = document.getElementById('chat-messages'); c.scrollTop = c.scrollHeight; }
+
+async function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim(); if (!text) return;
+  input.value = ''; document.getElementById('quick-replies').innerHTML = '';
+  await sendUserText(text);
+}
+async function sendUserText(text) {
+  addUserMessage(text); showTyping();
+  try {
+    const messages = conversationHistory.slice(0,-1);
+    const response = await fetch('/api/chat', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({system: SYSTEM_PROMPT, messages: [...messages, {role:'user',content:text}]})
+    });
+    const data = await response.json(); removeTyping();
+    if (data.content && data.content[0]) {
+      addBotMessage(data.content[0].text);
+      const lower = text.toLowerCase();
+      if (lower.includes('offerte')||lower.includes('prijs')||lower.includes('kosten'))
+        setTimeout(()=>showQuickReplies(["Wat zijn de opties?","Hoe lang duurt levering?","Showroom bezoeken","Bel ons"]),300);
+      else if (lower.includes('levering')||lower.includes('montage'))
+        setTimeout(()=>showQuickReplies(["Prijs inclusief montage?","Offerte aanvragen"]),300);
+    } else { addBotMessage("Er is iets misgegaan. Bel ons op 085 060 9566."); }
+  } catch(err) {
+    removeTyping();
+    addBotMessage("Excuses, technisch probleem. Bel 085 060 9566 of mail info@mira-veranda.com.");
+  }
+}
+</script>
+</body>
+</html>
