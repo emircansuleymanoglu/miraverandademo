@@ -14,36 +14,52 @@ module.exports = async function handler(request, response) {
       return response.status(400).json({ error: "Gecersiz istek" });
     }
 
-    const anthropicKey = process.env.ANTHROPIC_API_KEY;
+    const geminiKey = process.env.GEMINI_API_KEY;
 
-    if (!anthropicKey) {
-      return response.status(500).json({ error: "ANTHROPIC_API_KEY is not configured" });
+    if (!geminiKey) {
+      return response.status(500).json({ error: "GEMINI_API_KEY is not configured" });
     }
 
-    const anthropicResponse = await fetch("https://api.anthropic.com/v1/messages", {
+    const geminiMessages = messages.map((message) => ({
+      role: message.role === "assistant" ? "model" : "user",
+      parts: [{ text: message.content }],
+    }));
+
+    const geminiResponse = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${geminiKey}`,
+      {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": anthropicKey,
-        "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 400,
-        system,
-        messages,
+        systemInstruction: {
+          parts: [{ text: system || "" }],
+        },
+        contents: geminiMessages,
+        generationConfig: {
+          maxOutputTokens: 400,
+        },
       }),
-    });
+      },
+    );
 
-    if (!anthropicResponse.ok) {
-      const errorText = await anthropicResponse.text();
-      return response.status(anthropicResponse.status).json({ error: errorText });
+    if (!geminiResponse.ok) {
+      const errorText = await geminiResponse.text();
+      return response.status(geminiResponse.status).json({ error: errorText });
     }
 
-    const data = await anthropicResponse.json();
+    const data = await geminiResponse.json();
+    const text = data.candidates?.[0]?.content?.parts?.map((part) => part.text || "").join("").trim();
+
+    if (!text) {
+      return response.status(502).json({ error: "AI response was empty" });
+    }
 
     response.setHeader("Access-Control-Allow-Origin", "*");
-    return response.status(200).json(data);
+    return response.status(200).json({
+      content: [{ type: "text", text }],
+    });
   } catch (error) {
     return response.status(500).json({ error: error.message });
   }
